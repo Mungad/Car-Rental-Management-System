@@ -6,6 +6,7 @@ import reservation from './router/reservation.router';
 import payment from './router/payment.router';
 import location from './router/location.router';
 import customer from './router/auth.router';
+import booking from './router/booking.router';
 
 
 //import user from './auth/auth.router';
@@ -24,6 +25,7 @@ reservation(app);
 payment(app);
 location(app);
 customer(app)
+booking(app);
 
 app.get('/', (_req, res) => {
     res.send('Car Rental Management System API is running!');

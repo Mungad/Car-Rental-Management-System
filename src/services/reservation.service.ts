@@ -4,7 +4,7 @@ import { TIReservation, ReservationTable } from "../Drizzle/schema";
 
 export const createReservationService = async (reservation: TIReservation) => {
   await db.insert(ReservationTable).values(reservation).returning();
-  return "Reservation added successfully";
+  return "Reservation added successfully"; 
 };
 
 export const getReservationService = async () => {

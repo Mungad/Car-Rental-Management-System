@@ -1,18 +1,6 @@
 ### Test Route
 GET http://localhost:8081/
 
-# ### Create a car
-# POST http://localhost:8081/car
-# Content-Type: application/json
-
-# {
-  
-#   "carId": "1",
-#   "carModel": "Corolla",
-#   "year": 2020,
-#   "locationID:": 50
-# }
-
 ### Get All Cars
 GET http://localhost:8081/cars
 
@@ -23,12 +11,12 @@ POST http://localhost:8081/car/register
 Content-Type: application/json
 
  {
-    "carModel": "Suzuki",
-    "year": "2014-07-08",
-    "color": "white",
-    "rentalRate": "1500.00",
-    "availability": false,
-    "locationID": 1
+    "carModel": "Mazda",
+    "year": "2019-07-08",
+    "color": "yellow",
+    "rentalRate": "4500.00",
+    "availability": true,
+    "locationID": 5
   }
 ### Get All Cars
 GET http://localhost:8081/cars
@@ -128,7 +116,7 @@ Content-Type: application/json
     "contactNumber": "0788231111"
 }
 ### Delete a Location
-DELETE http://localhost:8081/location/2
+DELETE http://localhost:8081/location/4
 
 ### INSURANCE TABLE
 
@@ -137,20 +125,20 @@ POST http://localhost:8081/insurance/register
 Content-Type: application/json
 
 {
-  "carID": 1,
-  "insuranceProvider": "Heritage Insurance",
-  "policyNumber": "HER-2025-MNO678",
-  "startDate": "2025-06-01",
-  "endDate": "2026-05-31"
+  "carID": 6,
+  "insuranceProvider": "AAR Insurance",
+  "policyNumber": "AAR-2026-HJR678",
+  "startDate": "2022-04-23",
+  "endDate": "2023-04-23"
 }
 ### Get All Insurance Records
 GET http://localhost:8081/insurances
 
 ### Get an Insurance Record by ID
-GET http://localhost:8081/insurance/1
+GET http://localhost:8081/insurance/3
 
 ### Update an Insurance Record
-PUT http://localhost:8081/insurance/1
+PUT http://localhost:8081/insurance/3
 Content-Type: application/json
 
 {
@@ -162,7 +150,7 @@ Content-Type: application/json
 }
 
 ### Delete an Insurance Record
-DELETE http://localhost:8081/insurance/1
+DELETE http://localhost:8081/insurance/2
 
 ### MAINTENANCE TABLE
 
@@ -267,3 +255,42 @@ Content-Type: application/json
 
 ### Delete a Payment
 DELETE http://localhost:8081/payment/1
+
+### BOOKINGS TABLE
+
+### Create a Booking
+POST http://localhost:8081/booking/register
+Content-Type: application/json
+
+{
+    "carID": 5,
+    "customerID": 1,
+    "rentalStartDate": "2025-06-08",
+    "rentalEndDate": "2025-06-11",
+    "totalAmount": "7500.00"
+  }
+
+### Get All Bookings
+GET http://localhost:8081/bookings
+
+### Get All Customer Bookings
+GET http://localhost:8081/bookings/customer/3
+
+
+### Get a Booking by ID
+GET http://localhost:8081/booking/3
+
+### Update a Booking
+PUT http://localhost:8081/booking/3
+Content-Type: application/json
+
+{
+  "carID": 2,
+  "customerID": 2,
+  "rentalStartDate": "2025-06-01",
+  "rentalEndDate": "2025-06-06",
+  "totalAmount": "18000.00"
+}
+
+### Delete a Booking
+DELETE http://localhost:8081/booking/1
