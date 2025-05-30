@@ -47,12 +47,12 @@ POST http://localhost:8081/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Job",
-    "lastName": "Kariuki",
-    "email": "job.kariuki@gmail.com",
-    "phoneNumber": "0711223344",
-    "address": "Juja Town",
-    "password": "job@123"
+    "firstName": "Samuel",
+    "lastName": "Wanjohi",
+    "email": "samuel.wanjohi@gmail.com",
+    "phoneNumber": "0711234344",
+    "address": "Kiambu Town",
+    "password": "samuel@123"
   }
 
 ### Login a Customer
@@ -60,10 +60,10 @@ POST http://localhost:8081/auth/login
 Content-Type: application/json
 
 {
-    "firstName": "Job",
-    "lastName": "Kariuki",
-    "email": "job.kariuki@gmail.com",
-    "password": "job@123"
+    "firstName": "Samuel",
+    "lastName": "Wanjohi",
+    "email": "samuel.wanjohi@gmail.com",
+    "password": "samuel@123"
   }
 ### Get All Customers
 GET http://localhost:8081/customers
@@ -142,7 +142,7 @@ PUT http://localhost:8081/insurance/3
 Content-Type: application/json
 
 {
-  "carID": 1,
+  "carID": 9,
   "insuranceProvider": "Jubilee Insurance",
   "policyNumber": "JUB-2025-456",
   "startDate": "2025-01-01",
@@ -159,9 +159,9 @@ POST http://localhost:8081/maintenance
 Content-Type: application/json
 
 {
-  "carID": 1,
+  "carID": 7,
   "maintenanceDate": "2024-05-22",
-  "description": "Car Service",
+  "description": "Oil change",
   "cost": "4000.00"
 }
 
@@ -169,14 +169,14 @@ Content-Type: application/json
 GET http://localhost:8081/maintenance
 
 ### Get a Maintenance Record by ID
-GET http://localhost:8081/maintenance/5
+GET http://localhost:8081/maintenance/9
 
 ### Update a Maintenance Record
-PUT http://localhost:8081/maintenance/2
+PUT http://localhost:8081/maintenance/9
 Content-Type: application/json
 
 {
-  "carID": 1,
+  "carID": 7,
   "maintenanceDate": "2024-09-12",
   "description": "Puncture",
   "cost": "2000.00"
@@ -192,8 +192,8 @@ POST http://localhost:8081/reservation/register
 Content-Type: application/json
 
 {
-  "customerID": 7,
-  "carID": 6,
+  "customerID": 3,
+  "carID": 10,
   "reservationDate": "2025-05-12",
   "pickupDate": "2025-05-13",
   "returnDate": "2025-05-18"
@@ -206,10 +206,10 @@ GET http://localhost:8081/reservations
 GET http://localhost:8081/reservations/customer/5
 
 ### Get a Reservation by ID
-GET http://localhost:8081/reservation/2
+GET http://localhost:8081/reservation/3
 
 ### Update a Reservation
-PUT http://localhost:8081/reservation/2
+PUT http://localhost:8081/reservation/1
 Content-Type: application/json
 
 {
@@ -230,7 +230,7 @@ POST http://localhost:8081/payment/register
 Content-Type: application/json
 
 {
-  "bookingID": 1,
+  "bookingID": 4,
   "paymentDate": "2024-01-09",
   "amount": "17000.00",
   "paymentMethod": "Debit Card"
@@ -243,7 +243,7 @@ GET http://localhost:8081/payments
 GET http://localhost:8081/payment/1
 
 ### Update a Payment
-PUT http://localhost:8081/payment/11
+PUT http://localhost:8081/payment/8
 Content-Type: application/json
 
 {
@@ -285,8 +285,8 @@ PUT http://localhost:8081/booking/3
 Content-Type: application/json
 
 {
-  "carID": 2,
-  "customerID": 2,
+  "carID": 9,
+  "customerID": 1,
   "rentalStartDate": "2025-06-01",
   "rentalEndDate": "2025-06-06",
   "totalAmount": "18000.00"
