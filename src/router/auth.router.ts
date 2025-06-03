@@ -1,9 +1,16 @@
 import { Express } from "express";
-import { loginCustomerController, registerCustomerController,getCustomerController, getCustomerByIdController, updateCustomerController, deleteCustomerController } from '../controllers/auth.controller';
+import { loginCustomerController, 
+        registerCustomerController,
+        getCustomerController, 
+        getCustomerByIdController, 
+        updateCustomerController, 
+        deleteCustomerController } from '../controllers/auth.controller';
+import { adminRoleAuth, bothRoleAuth } from "../middleware/bearerAuth";
 
 const customer = (app: Express) => {
     // register user route
     app.route("/auth/register").post(
+        bothRoleAuth,
         async (req, res, next) => {
             try {
                 await registerCustomerController(req, res);
@@ -15,6 +22,7 @@ const customer = (app: Express) => {
 
     // login user route
     app.route("/auth/login").post(
+        bothRoleAuth,
         async (req, res, next) => {
             try {
                 await loginCustomerController(req, res);
@@ -26,6 +34,7 @@ const customer = (app: Express) => {
 
     // get all customers route
     app.route('/customers').get(
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await getCustomerController(req, res);
@@ -37,6 +46,7 @@ const customer = (app: Express) => {
 
     // get customer by id route
     app.route('/customer/:id').get(
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await getCustomerByIdController(req, res);
@@ -48,6 +58,7 @@ const customer = (app: Express) => {
 
     // update customer by id route
     app.route('/customer/:id').put(
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await updateCustomerController(req, res);
@@ -59,6 +70,7 @@ const customer = (app: Express) => {
 
     // delete customer by id route
     app.route('/customer/:id').delete(
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await deleteCustomerController(req, res);

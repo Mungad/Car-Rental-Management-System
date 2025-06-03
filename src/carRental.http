@@ -1,8 +1,6 @@
 ### Test Route
 GET http://localhost:8081/
 
-### Get All Cars
-GET http://localhost:8081/cars
 
 ### CAR TABLE
 
@@ -47,12 +45,12 @@ POST http://localhost:8081/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Samuel",
-    "lastName": "Wanjohi",
-    "email": "samuel.wanjohi@gmail.com",
-    "phoneNumber": "0711234344",
-    "address": "Kiambu Town",
-    "password": "samuel@123"
+    "firstName": "Daisy",
+    "lastName": "Munga",
+    "email": "daisy.munga@gmail.com",
+    "phoneNumber": "0785042333",
+    "address": "Juja Town",
+    "password": "daisy@123"
   }
 
 ### Login a Customer
@@ -60,11 +58,11 @@ POST http://localhost:8081/auth/login
 Content-Type: application/json
 
 {
-    "firstName": "Samuel",
-    "lastName": "Wanjohi",
-    "email": "samuel.wanjohi@gmail.com",
+    "email": "samuwanjohi@gmail.com",
     "password": "samuel@123"
   }
+
+
 ### Get All Customers
 GET http://localhost:8081/customers
 
@@ -155,7 +153,7 @@ DELETE http://localhost:8081/insurance/2
 ### MAINTENANCE TABLE
 
 ### Create a Maintenance Record
-POST http://localhost:8081/maintenance
+POST http://localhost:8081/maintenance/register
 Content-Type: application/json
 
 {
@@ -166,7 +164,7 @@ Content-Type: application/json
 }
 
 ### Get All Maintenance Records
-GET http://localhost:8081/maintenance
+GET http://localhost:8081/maintenances
 
 ### Get a Maintenance Record by ID
 GET http://localhost:8081/maintenance/9

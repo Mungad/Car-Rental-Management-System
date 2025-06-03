@@ -7,10 +7,11 @@ import {
   updateReservationController,
   deleteReservationController,
 } from '../controllers/reservation.controller';
-// Authorization middleware imports removed
+import { bothRoleAuth, userRoleAuth,adminRoleAuth } from "../middleware/bearerAuth";
 
 const reservation = (app: Express) => {
   app.route("/reservation/register").post(
+    userRoleAuth,
     async (req, res, next) => {
       try {
         await createReservationController(req, res);
@@ -21,6 +22,7 @@ const reservation = (app: Express) => {
   );
 
   app.route("/reservations").get(
+    adminRoleAuth,
     async (req, res, next) => {
       try {
         await getReservationController(req, res);
@@ -32,6 +34,7 @@ const reservation = (app: Express) => {
 
   // customerID must be spelled in exact same way as in controller while being referenced in params
   app.route("/reservations/customer/:customerID").get(
+    bothRoleAuth,
     async (req, res, next) => {
       try {
         await getReservationsByCustomerIdController(req, res);
@@ -42,6 +45,7 @@ const reservation = (app: Express) => {
   );
 
   app.route("/reservation/:id").get(
+    bothRoleAuth,
     async (req, res, next) => {
       try {
         await getReservationByIdController(req, res);
@@ -52,6 +56,7 @@ const reservation = (app: Express) => {
   );
 
   app.route("/reservation/:id").put(
+    adminRoleAuth,
     async (req, res, next) => {
       try {
         await updateReservationController(req, res);
@@ -62,6 +67,7 @@ const reservation = (app: Express) => {
   );
 
   app.route("/reservation/:id").delete(
+    userRoleAuth,
     async (req, res, next) => {
       try {
         await deleteReservationController(req, res);
