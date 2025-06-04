@@ -8,6 +8,12 @@ export const createCustomerService = async (user: TICustomer) => {
     await db.insert(CustomerTable).values(user);
     return "Customer added successfully";
 }
+//verify
+export const verifyCustomerService = async (email: string) => {
+    await db.update(CustomerTable)
+        .set({ isVerified: true, verificationCode: null })
+        .where(sql`${CustomerTable.email} = ${email}`);
+}
 
 export const customerLoginService = async (customer: TSCustomer) => {
     const { email } = customer; //extracts email property from customer

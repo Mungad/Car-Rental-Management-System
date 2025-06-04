@@ -47,11 +47,20 @@ Content-Type: application/json
 {
     "firstName": "Daisy",
     "lastName": "Munga",
-    "email": "daisy.munga@gmail.com",
+    "email": "daisynmunga@gmail.com",
     "phoneNumber": "0785042333",
     "address": "Juja Town",
-    "password": "daisy@123"
+    "password": "jksr kmtb zzok duiu"
   }
+
+### Verify a Customer
+POST http://localhost:8081/auth/verify
+Content-Type: application/json
+
+{
+  "email": "daisy.munga@gmail.com",
+  "code": "daisy@123"
+}  
 
 ### Login a Customer
 POST http://localhost:8081/auth/login

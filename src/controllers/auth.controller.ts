@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
-import { createCustomerService, customerLoginService, getCustomerService, getCustomerByIdService, updateCustomerService, deleteCustomerService} from '../services/auth.service';
+import { createCustomerService, verifyCustomerService, customerLoginService, getCustomerService, getCustomerByIdService,getCustomerByEmailService, updateCustomerService, deleteCustomerService} from '../services/auth.service';
 import jwt from 'jsonwebtoken';
+import { sendEmail } from "../mailer/mailer";
 
 
 // create customer controller
@@ -12,14 +13,72 @@ export const registerCustomerController = async (req: Request, res: Response) =>
         const hashedPassword = await bcrypt.hashSync(password, 10);
         customer.password = hashedPassword;
 
+         // Generate a 6-digit verification code
+        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        customer.verificationCode = verificationCode;
+        customer.isVerified = false;
+
         const createCustomer = await createCustomerService(customer);
         if (!createCustomer) return res.json({ message: "Customer not created" })
+            //email
+          try {
+            await sendEmail(
+                customer.email,
+                "Verify your account",
+                `Hello ${customer.firstName} ${customer.lastName}, your verification code is: ${verificationCode}`,
+                `<div>
+                <h2>Hello ${customer.firstName} ${customer.lastName},</h2>
+                <p>Your verification code is: <strong>${verificationCode}</strong></p>
+                 <p>Enter this code to verify your account.</p>
+                </div>`
+            );
+        } catch (emailError) {
+            console.error("Failed to send registration email:", emailError);
+        }
+      
         return res.status(201).json({ message: createCustomer });
-
     } catch (error: any) {
         return res.status(500).json({ error: error.message });
     }
 }
+export const verifyCustomerController = async (req: Request, res: Response) => {
+    const { email, code } = req.body;   //use these exact names while routing
+    try {
+        const customer = await getCustomerByEmailService(email);
+        if (!customer) {
+            return res.status(404).json({ message: "Customer not found" });
+        }
+
+        if (customer.verificationCode === code) {
+            await verifyCustomerService(email);
+
+            // Send verification success email
+            try {
+                await sendEmail(
+                    customer.email,
+                    "Account Verified Successfully",
+                    `Hello ${customer.firstName} ${customer.lastName}, your account has been verified. You can now log in and use all features.`,
+                    `<div>
+                    <h2>Hello ${customer.firstName} ${customer.lastName},</h2>
+                    <p>Your account has been <strong>successfully verified</strong>!</p>
+                     <p>You can now log in and enjoy our services.</p>
+                     </div>`
+                )
+
+            } catch (error: any) {
+                console.error("Failed to send verification success email:", error);
+
+            }
+            return res.status(200).json({ message: "User verified successfully" });
+        } else {
+            return res.status(400).json({ message: "Invalid verification code" });
+        }
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+
+    } 
+}
+
 export const loginCustomerController = async (req: Request, res: Response) => {
     try {
         const customer= req.body;
@@ -103,7 +162,7 @@ export const getCustomerController = async (req: Request, res: Response) => {
     }
 }
 
-// get todo by id controller
+// get customer by id controller
 export const getCustomerByIdController = async (req: Request, res: Response) => {
     try {
         const id = parseInt(req.params.id);
